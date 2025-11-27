@@ -1,0 +1,20 @@
+version: "3.9"
+
+services:
+  app:
+    build: .
+    ports:
+      - "8080:8080"
+    environment:
+      - DISCORD_CLIENT_ID=${DISCORD_CLIENT_ID}
+      - DISCORD_CLIENT_SECRET=${DISCORD_CLIENT_SECRET}
+      - ADMIN_DISCORD_IDS=${ADMIN_DISCORD_IDS:-}
+      - JWT_SECRET=${JWT_SECRET:-change-me}
+      - DATABASE_FILE=${DATABASE_FILE:-file:/data/h2db/secretsanta}
+      - SPRING_PROFILES_ACTIVE=prod
+    volumes:
+      - secretsanta-data:/data/h2db
+
+volumes:
+  secretsanta-data:
+    driver: local
